@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.1)
 
-set(project_name example-async-api) ## rename your project here
+set(project_name oatpp-boilerplate) ## rename your project here
 
 SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static")
 
@@ -16,9 +16,7 @@ add_library(${project_name}-lib
 )
 
 ## link libs
-find_package(oatpp 1.3.0 REQUIRED PATHS 
-        "P:\\Downloads\\cpp-libraries\\oatpp\\build\\oatpp\\lib\\cmake\\oatpp-1.3.0"
-)
+find_package(oatpp 1.3.0 REQUIRED PATHS "${OATPP_ROOT}/lib/cmake/oatpp-1.3.0")
 
 target_link_libraries(${project_name}-lib
         PUBLIC oatpp::oatpp
