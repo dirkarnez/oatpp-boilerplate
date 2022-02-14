@@ -1,0 +1,44 @@
+name: oatpp-boilerplate-release-actions-workflow
+on:
+  push:
+    # Sequence of patterns matched against refs/tags
+    tags:
+      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+
+jobs:
+  build:
+    name: Create Release
+    runs-on: windows-latest
+    env:
+      msvc2019TargetZip: oatpp-boilerplate-${{ github.ref_name }}-msvc2019.zip
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Check cmake
+      run: cmake --version
+      
+    - name: Download oatpp-v1.3.0-mingw.zip
+      run: aria2c https://github.com/dirkarnez/oatpp-prebuilt/releases/download/v1.3.0/oatpp-v1.3.0-mingw.zip
+      
+    - name: Extract some files
+      run: 7z x oatpp-v1.3.0-mingw.zip
+        
+    - name: Configure
+      run: md build && cmake -S. -Bbuild -G "MinGW Makefiles" -DOATPP_ROOT="${{ github.workspace }}/oatpp-v1.3.0-mingw"
+
+    - name: Build
+      run: cmake --build build --config Release --target ALL_BUILD -v -- /maxcpucount
+      
+    - name: Archive Release
+      uses: thedoctor0/zip-release@master
+      with:
+        type: "zip"
+        directory: "build/Release"
+        filename: "${{ env.msvc2019TargetZip }}"
+
+    - name: Release prebuilt
+      uses: ncipollo/release-action@v1
+      with:
+        artifacts: "build/Release/${{ env.msvc2019TargetZip }}"
+        allowUpdates: true
+        token: ${{ secrets.GITHUB_TOKEN }}
