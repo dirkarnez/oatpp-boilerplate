@@ -10,7 +10,7 @@ jobs:
     name: Create Release
     runs-on: windows-latest
     env:
-      msvc2019TargetZip: oatpp-boilerplate-${{ github.ref_name }}-msvc2019.zip
+      mingwTargetZip: oatpp-boilerplate-${{ github.ref_name }}-mingw.zip
     steps:
     - uses: actions/checkout@v2
     
@@ -21,24 +21,24 @@ jobs:
       run: aria2c https://github.com/dirkarnez/oatpp-prebuilt/releases/download/v1.3.0/oatpp-v1.3.0-mingw.zip
       
     - name: Extract some files
-      run: 7z x oatpp-v1.3.0-mingw.zip
+      run: 7z x oatpp-v1.3.0-mingw.zip && dir
         
     - name: Configure
       run: md build && cmake -S. -Bbuild -G "MinGW Makefiles" -DOATPP_ROOT="${{ github.workspace }}/oatpp-v1.3.0-mingw"
 
     - name: Build
-      run: cmake --build build --config Release --target ALL_BUILD -v -- /maxcpucount
+      run: cd build && mingw32-make.exe
       
     - name: Archive Release
       uses: thedoctor0/zip-release@master
       with:
         type: "zip"
-        directory: "build/Release"
-        filename: "${{ env.msvc2019TargetZip }}"
+        directory: "build"
+        filename: "${{ env.mingwTargetZip }}"
 
     - name: Release prebuilt
       uses: ncipollo/release-action@v1
       with:
-        artifacts: "build/Release/${{ env.msvc2019TargetZip }}"
+        artifacts: "build/${{ env.mingwTargetZip }}"
         allowUpdates: true
         token: ${{ secrets.GITHUB_TOKEN }}
