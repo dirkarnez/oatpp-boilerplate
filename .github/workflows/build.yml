@@ -21,7 +21,7 @@ jobs:
       run: aria2c https://github.com/dirkarnez/oatpp-prebuilt/releases/download/v1.3.0/oatpp-v1.3.0-mingw.zip
       
     - name: Extract some files
-      run: 7z x oatpp-v1.3.0-mingw.zip
+      run: 7z x oatpp-v1.3.0-mingw.zip -o./oatpp-v1.3.0-mingw
       
     - name: Make build directory
       run: md build        
