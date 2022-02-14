@@ -21,10 +21,14 @@ jobs:
       run: aria2c https://github.com/dirkarnez/oatpp-prebuilt/releases/download/v1.3.0/oatpp-v1.3.0-mingw.zip
       
     - name: Extract some files
-      run: 7z x oatpp-v1.3.0-mingw.zip && dir
-        
+      run: 7z x oatpp-v1.3.0-mingw.zip
+      
+    - name: Make build directory
+      run: md build        
+         
     - name: Configure
-      run: md build && cmake -S. -Bbuild -G "MinGW Makefiles" -DOATPP_ROOT="${{ github.workspace }}/oatpp-v1.3.0-mingw"
+      shell: bash
+      run: cmake -S. -Bbuild -G "MinGW Makefiles" -DOATPP_ROOT="${{ github.workspace }}/oatpp-v1.3.0-mingw"
 
     - name: Build
       run: cd build && mingw32-make.exe
