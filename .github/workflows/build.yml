@@ -27,8 +27,8 @@ jobs:
       run: md build        
          
     - name: Configure
-      shell: bash
-      run: cmake -S. -Bbuild -G "MinGW Makefiles" -DOATPP_ROOT="${{ github.workspace }}/oatpp-v1.3.0-mingw"
+      shell: cmd
+      run: cmake -S. -Bbuild -G "MinGW Makefiles" -DOATPP_ROOT="%cd%/oatpp-v1.3.0-mingw"
 
     - name: Build
       run: cd build && mingw32-make.exe
