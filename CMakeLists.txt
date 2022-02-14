@@ -15,6 +15,7 @@ add_library(${project_name}-lib
         src/dto/MyDTOs.hpp
 )
 
+message(STATUS "${OATPP_ROOT}")
 ## link libs
 find_package(oatpp 1.3.0 REQUIRED PATHS "${OATPP_ROOT}")
 
