@@ -15,8 +15,10 @@ add_library(${project_name}-lib
         src/dto/MyDTOs.hpp
 )
 
+file(TO_CMAKE_PATH "${OATPP_ROOT}" OATPP_ROOT_FORWARD_SLASHES)
+
 ## link libs
-find_package(oatpp 1.3.0 REQUIRED PATHS "${OATPP_ROOT}/lib/cmake/oatpp-1.3.0")
+find_package(oatpp 1.3.0 REQUIRED PATHS "${OATPP_ROOT_FORWARD_SLASHES}/lib/cmake/oatpp-1.3.0")
 
 target_link_libraries(${project_name}-lib
         PUBLIC oatpp::oatpp
