@@ -5,6 +5,9 @@ From [oatpp/example-async-api: Example project how-to use oatpp asynchronous API
 ### `local-build.cmd` does not work yet
 This project and its major dependency [oatpp/oatpp](https://github.com/oatpp/oatpp) are all built by github actions - due to mismatch version of Mingw
 
+### Using
+- [dirkarnez/oatpp-prebuilt](https://github.com/dirkarnez/oatpp-prebuilt)
+
 ### Modules
 - [oatpp/oatpp-openssl: OpenSSL adaptor for Oat++ applications](https://github.com/oatpp/oatpp-openssl)
 - [oatpp/oatpp-swagger: OpenApi 3.0.0 docs + Swagger UI for oatpp services](https://github.com/oatpp/oatpp-swagger)
